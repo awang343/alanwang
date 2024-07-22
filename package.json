@@ -5,7 +5,7 @@
     },
     "git": {
         "scripts": {
-            "pre-push": "surge --project ./ --domain example-githooks.surge.sh"
+            "pre-push": "surge --project ./ --domain alan-wang-website.surge.sh"
         }
     }
 }
