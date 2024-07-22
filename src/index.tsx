@@ -1,17 +1,49 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { hydrate, prerender as ssr } from 'preact-iso';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import preactLogo from './assets/preact.svg';
+import './style.css';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export function App() {
+	return (
+		<div>
+			<a href="https://preactjs.com" target="_blank">
+				<img src={preactLogo} alt="Preact logo" height="160" width="160" />
+			</a>
+			<h1>Get Started building Vite-powered Preact Apps </h1>
+			<section>
+				<Resource
+					title="Learn Preact"
+					description="If you're new to Preact, try the interactive tutorial to learn important concepts"
+					href="https://preactjs.com/tutorial"
+				/>
+				<Resource
+					title="Differences to React"
+					description="If you're coming from React, you may want to check out our docs to see where Preact differs"
+					href="https://preactjs.com/guide/v10/differences-to-react"
+				/>
+				<Resource
+					title="Learn Vite"
+					description="To learn more about Vite and how you can customize it to fit your needs, take a look at their excellent documentation"
+					href="https://vitejs.dev"
+				/>
+			</section>
+		</div>
+	);
+}
+
+function Resource(props) {
+	return (
+		<a href={props.href} target="_blank" class="resource">
+			<h2>{props.title}</h2>
+			<p>{props.description}</p>
+		</a>
+	);
+}
+
+if (typeof window !== 'undefined') {
+	hydrate(<App />, document.getElementById('app'));
+}
+
+export async function prerender(data) {
+	return await ssr(<App {...data} />);
+}
