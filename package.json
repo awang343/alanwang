@@ -1,5 +1,11 @@
 {
-  "dependencies": {
-    "surge": "^0.0.0"
-  }
+    "devDependencies": {
+        "git-scripts": "^0.6.4",
+        "surge": "^0.0.0"
+    },
+    "git": {
+        "scripts": {
+            "pre-push": "surge --project ./ --domain example-githooks.surge.sh"
+        }
+    }
 }
